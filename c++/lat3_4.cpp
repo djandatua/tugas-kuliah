@@ -1,5 +1,7 @@
 #include <iostream>
-main()
+using namespace std;
+
+int main()
 {
 int nilai;
 cout << " Masukan Nilai Angka : "; cin >> nilai;
