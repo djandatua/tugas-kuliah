@@ -63,9 +63,7 @@ public class CRUD{
             
             BufferedReader br = new BufferedReader( new FileReader( db ) );
             BufferedWriter bw = new BufferedWriter( new FileWriter( tempDB ) );
-                        
-            
-        
+
             System.out.print("MASUKKAN NIM \t\t: ");
             NIM =  strInput.nextLine();
             
