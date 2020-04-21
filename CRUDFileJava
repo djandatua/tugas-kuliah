@@ -1,0 +1,166 @@
+/* Program java mendemonstrasikan CRUD
+ pada data file TXT*/
+import java.io.*;
+import java.util.StringTokenizer;
+import java.util.Scanner;
+public class CRUD{
+    public static void main(String[] args) throws IOException { 
+        Scanner strInput = new Scanner(System.in);
+        String pilihan,cont = "y";        
+        while( cont.equalsIgnoreCase("y") ) {   
+        System.out.println("\n====================================");
+        System.out.println(" SISTEM INFORMASI KELAS 04 TPLE 011 ");
+        System.out.println("=========== PILIHAN ANDA ===========");
+        System.out.println("[1] MENAMBAH DATA");
+        System.out.println("[2] MENAMPILKAN DATA"); 
+        System.out.println("[3] MEMPERBAHARUI DATA");
+        System.out.println("[4] MENCARI DATA");
+        System.out.println("[5] MENGHAPUS DATA");
+        System.out.println("====================================");
+        System.out.print("MASUKKAN PILIHAN ANDA \t: ");
+        pilihan = strInput.nextLine();
+        if( pilihan.equals("1") ) {
+            BufferedWriter bw = new BufferedWriter( new FileWriter( "D:/Chandra/Kuliah/Pemrograman/contoh/data/db_mahasiswa.txt",true) );                
+            
+            String nim, nama, usia, alamat;
+            
+            System.out.print("MASUKKAN NIM \t\t: ");
+            nim = strInput.nextLine();
+            System.out.print("MASUKKAN NAMA \t\t: ");
+            nama = strInput.nextLine();
+            System.out.print("MASUKKAN USIA \t\t: ");
+            usia = strInput.nextLine();
+            System.out.print("MASUKKAN ALAMAT \t: ");
+            alamat = strInput.nextLine();         
+                
+            bw.write(nim+","+nama+","+usia+","+alamat);
+            bw.flush();
+            bw.newLine();
+            bw.close(); 
+        }
+        
+        if( pilihan.equals("2") ) {
+            String record;
+            BufferedReader br = new BufferedReader( new FileReader("D:/Chandra/Kuliah/Pemrograman/contoh/data/db_mahasiswa.txt") );
+            System.out.println("---------------------------------------------------------------------------------");
+            System.out.println("|\tNIM \t\tNama \t\t\tUsia \t\tAlamat \t\t|");
+            System.out.println("---------------------------------------------------------------------------------");
+            while( ( record = br.readLine() ) != null ) {
+                StringTokenizer st = new StringTokenizer(record,",");
+                System.out.println("|   "+st.nextToken()+"  \t"+st.nextToken()+" \t"+st.nextToken()+" \t"+st.nextToken()+" \t|");
+            }
+
+            System.out.println("---------------------------------------------------------------------------------");
+            System.out.println("---------------------------------------------------------------------------------");
+            br.close(); 
+        }
+        
+        if( pilihan.equals("3") ) {
+            String newNama, newUsia, newAlamat, record, NIM,record2;
+            
+            File db = new File("D:/Chandra/Kuliah/Pemrograman/contoh/data/db_mahasiswa.txt");
+            File tempDB = new File("D:/Chandra/Kuliah/Pemrograman/contoh/data/db_mahasiswa_bak.txt");
+            
+            BufferedReader br = new BufferedReader( new FileReader( db ) );
+            BufferedWriter bw = new BufferedWriter( new FileWriter( tempDB ) );
+                        
+            
+        
+            System.out.print("MASUKKAN NIM \t\t: ");
+            NIM =  strInput.nextLine();
+            
+            System.out.println("---------------------------------------------------------------------------------");
+            System.out.println("|\tNIM \t\tNama \t\t\tUsia \t\tAlamat \t\t|");
+            System.out.println("---------------------------------------------------------------------------------");
+            while( ( record = br.readLine() ) != null ) {
+                StringTokenizer st = new StringTokenizer(record,",");
+                System.out.println("|   "+st.nextToken()+"  \t"+st.nextToken()+" \t"+st.nextToken()+" \t"+st.nextToken()+" \t|");
+            }
+
+            System.out.println("---------------------------------------------------------------------------------");
+            System.out.println("---------------------------------------------------------------------------------");
+                
+            br.close();
+            
+            System.out.print("PERBAHARUI DATA NAMA \t: ");
+            newNama = strInput.nextLine();
+            System.out.print("PERBAHARUI DATA USIA \t: ");
+            newUsia = strInput.nextLine();
+            System.out.print("PERBAHARUI DATA ALAMAT \t: ");
+            newAlamat = strInput.nextLine();     
+
+            BufferedReader br2 = new BufferedReader( new FileReader(db) );
+                
+            while( (record2 = br2.readLine() ) != null ) {              
+                if(record2.contains(NIM)) {
+                    bw.write(NIM+","+newNama+","+newUsia+","+newAlamat);
+                } else {
+                
+                    bw.write(record2);  
+                }               
+                bw.flush();
+                bw.newLine();
+            }
+            
+            bw.close();
+            br2.close();            
+            db.delete();            
+            boolean sukses = tempDB.renameTo(db);          
+            System.out.println(sukses);
+        }
+        
+        if( pilihan.equals("4") ) {
+            String NIM,record;
+            
+            
+            BufferedReader br = new BufferedReader( new FileReader("D:/Chandra/Kuliah/Pemrograman/contoh/data/db_mahasiswa.txt") );
+
+            System.out.print("MASUKKAN NIM \t\t: ");
+            NIM =  strInput.nextLine();
+            
+            System.out.println("---------------------------------------------------------------------------------");
+            System.out.println("|\tNIM \t\tNama \t\t\tUsia \t\tAlamat \t\t|");
+            System.out.println("---------------------------------------------------------------------------------");
+            while( ( record = br.readLine() ) != null ) {
+                StringTokenizer st = new StringTokenizer(record,",");
+                System.out.println("|   "+st.nextToken()+"  \t"+st.nextToken()+" \t"+st.nextToken()+" \t"+st.nextToken()+" \t|");
+            }
+
+            System.out.println("---------------------------------------------------------------------------------");
+            System.out.println("---------------------------------------------------------------------------------");
+            
+            br.close();
+        }
+        
+        if( pilihan.equals("5") ) {
+            String NIM, record;
+            
+            File db = new File("D:/Chandra/Kuliah/Pemrograman/contoh/data/db_mahasiswa.txt");
+            File tempDB = new File("D:/Chandra/Kuliah/Pemrograman/contoh/data/db_mahasiswa_bak.txt");
+            
+            BufferedReader br = new BufferedReader( new FileReader( db ) );
+            BufferedWriter bw = new BufferedWriter( new FileWriter( tempDB ) );
+            
+            System.out.print("MASUKKAN NIM \t\t: ");
+            NIM =  strInput.nextLine();
+            while( ( record = br.readLine() ) != null ) {
+                if( record.contains(NIM) ) 
+                    continue;
+                bw.write(record);
+                bw.flush();
+                bw.newLine();
+            }
+            
+            br.close();
+            bw.close();
+            db.delete();
+            tempDB.renameTo(db);
+        }
+
+        System.out.println("\n====================================");
+        System.out.print("APAKAH ANDA INGIN MELANJUTKAN? (Y/N) : ");
+        cont = strInput.nextLine();
+            
+        }
+    }
+}
